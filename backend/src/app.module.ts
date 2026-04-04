@@ -6,6 +6,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
 import { ProductsModule } from './products/products.module';
+import { CountryModule } from './country/country.module';
+import { CustomersModule } from './customers/customers.module';
+import { TransactionsModule } from './transactions/transactions.module';
+import { TransactionsDetailsModule } from './transactions_details/transactions_details.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
@@ -16,6 +21,11 @@ import { ProductsModule } from './products/products.module';
     }),
     SalesModule,
     ProductsModule,
+    CountryModule,
+    CustomersModule,
+    TransactionsModule,
+    TransactionsDetailsModule,
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
