@@ -2,27 +2,33 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Country } from 'src/country/entities/country.entity';
-import { Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
+import { Customers } from './entities/customer.entity';
 
 @Injectable()
 export class CustomersService {
   constructor(
-    @InjectRepository(Country)
-    private readonly customerRepository: Repository<Country>,
+    @InjectRepository(Customers)
+    private readonly customerRepository: Repository<Customers>,
   ) {}
   create(createCustomerDto: CreateCustomerDto) {
     return 'This action adds a new customer';
   }
 
-  async findAll() {
-    const customers = await this.customerRepository.find({
-      take: 10,
-    });
-    if (customers.length === 0) {
+  async findAll(take: number, skip: number) {
+    const options: FindManyOptions<Customers> = {
+      take,
+      skip,
+    };
+    const [customers, total] =
+      await this.customerRepository.findAndCount(options);
+    if (total === 0) {
       throw new NotFoundException('Not Found Countrys');
     }
-    return customers;
+    return {
+      customers,
+      total,
+    };
   }
 
   findOne(id: number) {

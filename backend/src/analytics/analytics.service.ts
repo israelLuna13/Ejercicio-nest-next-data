@@ -2,7 +2,7 @@ import { CreateAnalyticsDto } from './dto/create-analytics.dto';
 import { UpdateAnalyticsDto } from './dto/update-analytics.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SalesPerCountry } from './entities/sales-per-country.entity';
-import { Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 import { SalesPerDay } from './entities/sales-per-day.entity';
 import { SalesReturned } from './entities/sales-returned.entity';
 import { TopCustomers } from './entities/top-customers.entity';
@@ -30,43 +30,67 @@ export class AnalyticsService {
   findAll() {
     return `This action returns all analytics`;
   }
-  async findSalesCountry() {
-    const salesCountry = await this.salesCountryRepo.find({ take: 10 });
-    if (salesCountry.length === 0) {
+  async findSalesCountry(take: number, skip: number) {
+    const options: FindManyOptions<SalesPerCountry> = {
+      take,
+      skip,
+    };
+    const [salesCountry, total] =
+      await this.salesCountryRepo.findAndCount(options);
+    if (total === 0) {
       throw new NotFoundException('There are not data');
     }
-    return salesCountry;
+    return { salesCountry, total };
   }
 
-  async findSalesDay() {
-    const salesDay = await this.salesDayRepo.find({ take: 10 });
-    if (salesDay.length === 0) {
+  async findSalesDay(take: number, skip: number) {
+    const options: FindManyOptions<SalesPerDay> = {
+      take,
+      skip,
+    };
+    const [salesDay, total] = await this.salesDayRepo.findAndCount(options);
+    if (total === 0) {
       throw new NotFoundException('There are not data');
     }
-    return salesDay;
+    return { salesDay, total };
   }
-  async findSalesReturned() {
-    const salesReturned = await this.salesReturnedRepo.find({ take: 10 });
-    if (salesReturned.length === 0) {
+  async findSalesReturned(take: number, skip: number) {
+    const options: FindManyOptions<SalesReturned> = {
+      take,
+      skip,
+    };
+    const [salesReturned, total] =
+      await this.salesReturnedRepo.findAndCount(options);
+    if (total === 0) {
       throw new NotFoundException('There are not data');
     }
-    return salesReturned;
+    return { salesReturned, total };
   }
 
-  async findTopCustomers() {
-    const topCustomers = await this.topCustomersRepo.find({ take: 10 });
-    if (topCustomers.length === 0) {
+  async findTopCustomers(take: number, skip: number) {
+    const options: FindManyOptions<TopCustomers> = {
+      take,
+      skip,
+    };
+    const [topCustomers, total] =
+      await this.topCustomersRepo.findAndCount(options);
+    if (total === 0) {
       throw new NotFoundException('There are not data');
     }
-    return topCustomers;
+    return { topCustomers, total };
   }
 
-  async findTopProducts() {
-    const topProducts = await this.topProductsRepo.find({ take: 10 });
-    if (topProducts.length === 0) {
+  async findTopProducts(take: number, skip: number) {
+    const options: FindManyOptions<TopProductsIncome> = {
+      take,
+      skip,
+    };
+    const [topProducts, total] =
+      await this.topProductsRepo.findAndCount(options);
+    if (total === 0) {
       throw new NotFoundException('There are not data');
     }
-    return topProducts;
+    return { topProducts, total };
   }
 
   findOne(id: number) {

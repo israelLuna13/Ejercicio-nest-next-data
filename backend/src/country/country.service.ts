@@ -3,7 +3,7 @@ import { CreateCountryDto } from './dto/create-country.dto';
 import { UpdateCountryDto } from './dto/update-country.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Country } from './entities/country.entity';
-import { Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 
 @Injectable()
 export class CountryService {
@@ -15,17 +15,22 @@ export class CountryService {
     return 'This action adds a new country';
   }
 
-  async findAll() {
+  async findAll(take: number, skip: number) {
     // const countrys = await this.countryRepository.find({
     //   relations: {
     //     customers: true,
     //   },
     // });
-    const countrys = await this.countryRepository.find();
-    if (countrys.length === 0) {
+    const options: FindManyOptions<Country> = {
+      take,
+      skip,
+    };
+    const [countrys, total] =
+      await this.countryRepository.findAndCount(options);
+    if (total === 0) {
       throw new NotFoundException('Not Found Countrys');
     }
-    return countrys;
+    return { countrys, total };
   }
 
   findOne(id: number) {

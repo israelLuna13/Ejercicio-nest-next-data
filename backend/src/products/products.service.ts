@@ -3,7 +3,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Products } from './entities/products.entity';
-import { Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 
 @Injectable()
 export class ProductsService {
@@ -16,14 +16,26 @@ export class ProductsService {
     return 'This action adds a new product';
   }
 
-  async findAll() {
-    const products = await this.productRepository.find({
-      take: 10,
-    });
-    if (products.length === 0) {
+  async findAll(take: number, skip: number) {
+    //con esto evitamos repetir codigo
+    //opciones de filtrado para la consulta
+    const options: FindManyOptions<Products> = {
+      //crear una funcion donde el usuario escoja el tipo de orden
+      // order: {
+      //   id: 'DESC',
+      // },
+      take,
+      skip,
+    };
+    const [products, total] =
+      await this.productRepository.findAndCount(options);
+    if (total === 0) {
       throw new NotFoundException('Not Found Product');
     }
-    return products;
+    return {
+      products,
+      total,
+    };
   }
 
   findOne(id: number) {

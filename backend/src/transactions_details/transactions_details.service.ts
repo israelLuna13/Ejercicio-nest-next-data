@@ -3,7 +3,7 @@ import { CreateTransactionsDetailDto } from './dto/create-transactions_detail.dt
 import { UpdateTransactionsDetailDto } from './dto/update-transactions_detail.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TransactionsDetails } from './entities/transactions_detail.entity';
-import { Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 
 @Injectable()
 export class TransactionsDetailsService {
@@ -15,18 +15,21 @@ export class TransactionsDetailsService {
     return 'This action adds a new transactionsDetail';
   }
 
-  async findAll() {
-    const transactions_details = await this.transactionDetailssRepo.find({
-      take: 10,
+  async findAll(take: number, skip: number) {
+    const options: FindManyOptions<TransactionsDetails> = {
       relations: {
         transaction: true,
       },
-    });
+      take,
+      skip,
+    };
+    const [transactions_details, total] =
+      await this.transactionDetailssRepo.findAndCount(options);
 
-    if (transactions_details.length === 0) {
+    if (total === 0) {
       throw new NotFoundException('Transaction Not Found');
     }
-    return transactions_details;
+    return { transactions_details, total };
   }
 
   findOne(id: number) {

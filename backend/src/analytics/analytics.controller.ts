@@ -6,10 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { AnalyticsService } from './analytics.service';
 import { CreateAnalyticsDto } from './dto/create-analytics.dto';
 import { UpdateAnalyticsDto } from './dto/update-analytics.dto';
+import { GetDataQueryDto } from './dto/get-data.dto';
 
 @Controller('analytics')
 export class AnalyticsController {
@@ -25,27 +27,37 @@ export class AnalyticsController {
     return this.analyticsService.findAll();
   }
   @Get('/sales-country')
-  findSalesCountry() {
-    return this.analyticsService.findSalesCountry();
+  findSalesCountry(@Query() query: GetDataQueryDto) {
+    const take = query.take ? query.take : 10;
+    const skip = query.skip ? query.skip : 0;
+    return this.analyticsService.findSalesCountry(take, skip);
   }
 
   @Get('/sales-day')
-  findSalesDay() {
-    return this.analyticsService.findSalesDay();
+  findSalesDay(@Query() query: GetDataQueryDto) {
+    const take = query.take ? query.take : 10;
+    const skip = query.skip ? query.skip : 0;
+    return this.analyticsService.findSalesDay(take, skip);
   }
   @Get('/sales-returned')
-  findSalesreturned() {
-    return this.analyticsService.findSalesReturned();
+  findSalesreturned(@Query() query: GetDataQueryDto) {
+    const take = query.take ? query.take : 10;
+    const skip = query.skip ? query.skip : 0;
+    return this.analyticsService.findSalesReturned(take, skip);
   }
 
   @Get('/top-customers')
-  findTopCustomers() {
-    return this.analyticsService.findTopCustomers();
+  findTopCustomers(@Query() query: GetDataQueryDto) {
+    const take = query.take ? query.take : 10;
+    const skip = query.skip ? query.skip : 0;
+    return this.analyticsService.findTopCustomers(take, skip);
   }
 
   @Get('/top-products')
-  findTopProducts() {
-    return this.analyticsService.findTopProducts();
+  findTopProducts(@Query() query: GetDataQueryDto) {
+    const take = query.take ? query.take : 10;
+    const skip = query.skip ? query.skip : 0;
+    return this.analyticsService.findTopProducts(take, skip);
   }
 
   @Get(':id')
