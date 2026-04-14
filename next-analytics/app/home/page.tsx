@@ -1,45 +1,69 @@
 // app/page.jsx
 
 import Card from "@/components/UI/Card";
-import { Globe, Package, Users } from "lucide-react";
+import { Globe, Package, Users, Store } from "lucide-react";
 
 export default function Home() {
   const sections = [
     {
-      title: "Productos",
+      title: "Products",
       description: "Gestiona los productos",
-      href: "/productos",
+      href: "/data/products",
       icon: Package,
     },
     {
-      title: "Países",
+      title: "Countrys",
       description: "Ver países",
-      href: "/paises",
+      href: "/data/country",
       icon: Globe,
     },
     {
-      title: "Usuarios",
+      title: "Customers",
       description: "Administrar usuarios",
-      href: "/usuarios",
+      href: "/data/customers",
       icon: Users,
     },
         {
-      title: "Transacciones",
+      title: "Transactions",
       description: "",
-      href: "/transactions",
+      href: "/data/transactions",
       icon: Users,
     },
         {
       title: "Details transactions",
       description: "Administrar usuarios",
-      href: "/details-transactions",
+      href: "/data/transactions-details",
       icon: Users,
     },
         {
       title: "Sales per day",
       description: "Ventas por dia",
       href: "/analytics/sales-day",
+      icon: Store,
+    },
+       {
+      title: "Sales Country",
+      description: "Ventas por dia",
+      href: "/analytics/sales-country",
       icon: Users,
+    },
+       {
+      title: "Sales returned",
+      description: "Ventas por dia",
+      href: "/analytics/sales-returned",
+      icon: Store,
+    },
+     {
+      title: "Top customers",
+      description: "Ventas por dia",
+      href: "/analytics/top-customers",
+      icon: Store,
+    },
+      {
+      title: "Top Products",
+      description: "Ventas por dia",
+      href: "/analytics/top-products",
+      icon: Store,
     },
   ];
 

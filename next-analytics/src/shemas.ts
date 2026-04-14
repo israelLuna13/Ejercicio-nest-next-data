@@ -26,6 +26,15 @@ export const TopProductSchema = z.object({
   stockcode:z.string(),
   top_product_money:z.number()
 })
+export const ProductSchema = z.object({
+  product_id:z.number(),
+  description:z.string(),
+  stockcode:z.string(),
+})
+export const CountrySchema = z.object({
+  country_id:z.number(),
+  country:z.string()
+})
 
 //--------------
 export const SalesDaySchema= z.object({
@@ -50,9 +59,23 @@ export const TopProductsSchema= z.object({
   topProducts:z.array(TopProductSchema),
   total:z.number()
 })
+
+export const ProductsSchema= z.object({
+  products:z.array(ProductSchema),
+  total:z.number()
+})
+export const CountrysSchema= z.object({
+  countrys:z.array(CountrySchema),
+  total:z.number()
+})
+
 export type SaleCountry = z.infer<typeof SaleCountrySchema>
 export type SaleDay = z.infer<typeof SaleDaySchema>
 export type SaleReturned = z.infer<typeof SaleReturnedSchema>
 export type TopCustomer = z.infer<typeof TopCustomerSchema>
 export type TopPorduct = z.infer<typeof TopProductSchema>
+export type Product = z.infer<typeof ProductSchema>
+export type Country = z.infer<typeof CountrySchema>
+
+
 
