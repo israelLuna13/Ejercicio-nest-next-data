@@ -17,6 +17,9 @@ export class CustomersService {
 
   async findAll(take: number, skip: number) {
     const options: FindManyOptions<Customers> = {
+      relations: {
+        country: true,
+      },
       take,
       skip,
     };

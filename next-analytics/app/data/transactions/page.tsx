@@ -1,19 +1,19 @@
-import DataCustomers from "@/components/data/DataCustomers"
+import DataTransactions from "@/components/data/DataTransactions"
 import Heading from "@/components/UI/Heading"
 import Pagination from "@/components/UI/Pagination"
-import { CustomersSchema } from "@/src/shemas"
+import { TransactionsSchema } from "@/src/shemas"
 import { isValidPage } from "@/src/utils"
 import { notFound, redirect } from "next/navigation"
 
-async function getCustomers(take: number, skip: number){
-  const url = `${process.env.API_URL}/customers?take=${take}&skip=${skip}`
+async function getTransactions(take: number, skip: number){
+  const url = `${process.env.API_URL}/transactions?take=${take}&skip=${skip}`
   const req = await fetch(url)
   const json = await req.json()
   
   if(!req.ok) notFound()
-  const data = CustomersSchema.parse(json)
+  const data = TransactionsSchema.parse(json)
   return {
-    customers: data.customers,
+    transactions: data.transactions,
     total: data.total
   }
   
@@ -22,23 +22,21 @@ type SearchParams = Promise<{ page: string}>
 
 export default async function page({searchParams}:{searchParams: SearchParams}) {
      const { page } = await searchParams;   
-          if (!isValidPage(+page)) redirect("/data/customers?page=1");
+          if (!isValidPage(+page)) redirect("/data/transactions?page=1");
           const dataPerPage = 200;
           const skip = (+page - 1) * dataPerPage;
-           const {customers, total} = await getCustomers(dataPerPage, skip);
+           const {transactions, total} = await getTransactions(dataPerPage, skip);
            const totalPages = Math.ceil(total / dataPerPage);
-           console.log(customers);
-           
            
   return (
     <>
         <Heading>Customers</Heading>
        
-             <DataCustomers customers={customers} />
+             <DataTransactions transactions={transactions} />
              <Pagination
                page={+page}
                totalPages={totalPages}
-               baseUrl="/data/customers"
+               baseUrl="/data/transactions"
              />
          
        </>
