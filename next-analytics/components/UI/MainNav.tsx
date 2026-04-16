@@ -1,6 +1,4 @@
 "use server"
-import Link from "next/link";
-
 export default async function MainNav() {
     
   return (
@@ -9,19 +7,19 @@ export default async function MainNav() {
       </div>
 
       <nav className="flex flex-col md:flex-row gap-2 items-center mt-5 md:mt-0 py-2">
-          <Link
+          {/* <Link
             href={`/`}
-            className="text-white hover:text-green-400 font-bold p-2"
+            
           >
             Liink
-          </Link>
+          </Link> */}
       </nav>
-      <Link
+      {/* <Link
         href={"/admin/sales/"}
         className=" bg-green-500 font-bold my-3 px-10 py-2"
       >
         Panel Administrator
-      </Link>
+      </Link> */}
     </header>
   );
 }

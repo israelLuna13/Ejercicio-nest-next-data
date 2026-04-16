@@ -8,7 +8,7 @@ export default function AnalyticNav() {
       </div>
 
       <div className="flex gap-2 items-center">
-        <Link
+        {/* <Link
           href={"/admin/products"}
           className="rounded text-white font-bold p-2"
         >
@@ -20,11 +20,14 @@ export default function AnalyticNav() {
           className="rounded text-white font-bold p-2"
         >
           --
-        </Link>
+        </Link> */}
 
-        <Link href={"/"} className="rounded bg-green-400 font-bold py-2 px-10">
-          --
-        </Link>
+        <Link
+        href={"/home"}
+        className=" bg-green-500 font-bold my-3 px-10 py-2"
+      >
+        Panel Administrator
+      </Link> 
       </div>
     </header>
   );

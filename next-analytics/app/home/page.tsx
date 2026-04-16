@@ -7,19 +7,19 @@ export default function Home() {
   const sections = [
     {
       title: "Products",
-      description: "Gestiona los productos",
+      description: "All products",
       href: "/data/products",
       icon: Package,
     },
     {
       title: "Countrys",
-      description: "Ver países",
+      description: "All Countrys",
       href: "/data/country",
       icon: Globe,
     },
     {
       title: "Customers",
-      description: "Administrar usuarios",
+      description: "All Customers",
       href: "/data/customers",
       icon: Users,
     },
@@ -31,7 +31,7 @@ export default function Home() {
     },
         {
       title: "Details transactions",
-      description: "Administrar usuarios",
+      description: "",
       href: "/data/transactions-details",
       icon: Users,
     },
@@ -43,13 +43,13 @@ export default function Home() {
     },
        {
       title: "Sales Country",
-      description: "Ventas por dia",
+      description: "",
       href: "/analytics/sales-country",
       icon: Users,
     },
        {
       title: "Sales returned",
-      description: "Ventas por dia",
+      description: "",
       href: "/analytics/sales-returned",
       icon: Store,
     },
@@ -61,7 +61,7 @@ export default function Home() {
     },
       {
       title: "Top Products",
-      description: "Ventas por dia",
+      description: "",
       href: "/analytics/top-products",
       icon: Store,
     },
